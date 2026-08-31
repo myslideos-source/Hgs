@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StatementSection from "@/components/StatementSection";
 import SolutionsSection from "@/components/SolutionsSection";
+import TruckJourneySection from "@/components/TruckJourneySection";
 import FuhrparkSection from "@/components/FuhrparkSection";
 import TimelineSection from "@/components/TimelineSection";
 import Werkstatt from "@/components/Werkstatt";
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <StatementSection />
         <SolutionsSection />
+        <TruckJourneySection />
         <FuhrparkSection />
         <TimelineSection />
         <Werkstatt />

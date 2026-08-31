@@ -4,40 +4,37 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import VwKurier from "./vehicles/VwKurier";
-import FiatTransporter from "./vehicles/FiatTransporter";
-import MercedesRigid from "./vehicles/MercedesRigid";
 
 const VEHICLES = [
   {
     name: "PKW / Kleinwagen",
     spec: "bis 750 kg",
     detail: "Kleinteile, Ersatzteile, Eilaufträge.",
-    Visual: VwKurier,
+    image: "/images/hgs-vw-caddy.jpg",
   },
   {
     name: "Transporter",
     spec: "bis 3,5 t",
     detail: "Sichere Kofferaufbauten, Just-in-Time.",
-    Visual: FiatTransporter,
+    image: "/images/hgs-fiat-ducato.jpg",
   },
   {
     name: "LKW 7,5 t",
     spec: "bis 7,5 t",
     detail: "Planbare Regionaltouren, wendig im Einsatz.",
-    Visual: MercedesRigid,
+    image: "/images/hgs-daf-photo.jpg",
   },
   {
-    name: "DAF LKW",
-    spec: "bis 7,5 t",
-    detail: "Zuverlässige Direkt- und Streckentransporte.",
-    image: "/images/hgs-daf.png",
+    name: "Sattelzug",
+    spec: "bis 40 t",
+    detail: "Europaweite Fernverkehrstouren, planbar & sicher.",
+    image: "/images/hgs-actros-b.jpg",
   },
   {
     name: "LKW 40 T",
     spec: "bis 40 t",
     detail: "Direkt- und Großtransporte, europaweit.",
-    image: "/images/hgs-40t.png",
+    image: "/images/hgs-actros-a.jpg",
   },
 ] as const;
 
@@ -61,31 +58,29 @@ export default function FuhrparkSlider() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="relative shrink-0 w-[260px] sm:w-[300px] snap-start rounded-2xl bg-card border border-border p-5 flex flex-col"
+            className="group relative shrink-0 w-[260px] sm:w-[300px] snap-start rounded-2xl bg-card border border-border overflow-hidden flex flex-col"
           >
-            <div className="relative h-32 sm:h-36 flex items-center justify-center mb-4">
-              <div className="absolute bottom-1 h-3 w-3/4 rounded-full bg-black/60 blur-xl" />
-              {"image" in v ? (
-                <Image
-                  src={v.image}
-                  alt={v.name}
-                  width={280}
-                  height={200}
-                  className="relative w-auto h-full max-w-[94%] object-contain"
-                />
-              ) : (
-                <v.Visual className="relative w-auto h-full max-w-[94%]" />
-              )}
+            <div className="relative h-36 sm:h-40 overflow-hidden">
+              <Image
+                src={v.image}
+                alt={v.name}
+                fill
+                sizes="300px"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
             </div>
-            <h3 className="font-bold uppercase text-sm tracking-wide text-text">
-              {v.name}
-            </h3>
-            <span className="font-label text-[11px] tracking-wide text-accent uppercase mt-1">
-              {v.spec}
-            </span>
-            <p className="text-text-secondary text-xs mt-2 leading-relaxed">
-              {v.detail}
-            </p>
+            <div className="p-5 pt-4">
+              <h3 className="font-bold uppercase text-sm tracking-wide text-text">
+                {v.name}
+              </h3>
+              <span className="font-label text-[11px] tracking-wide text-accent uppercase mt-1 block">
+                {v.spec}
+              </span>
+              <p className="text-text-secondary text-xs mt-2 leading-relaxed">
+                {v.detail}
+              </p>
+            </div>
           </motion.div>
         ))}
       </div>

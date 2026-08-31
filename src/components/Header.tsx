@@ -32,46 +32,58 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-bg/85 backdrop-blur-xl border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="container-hgs flex items-center justify-between h-[72px] md:h-20">
-        <a href="#top" aria-label="HGS Sonderfahrten Startseite">
-          <Logo />
-        </a>
+    <header className="fixed top-0 inset-x-0 z-50">
+      {/*
+        The scrolled background lives on this inner wrapper, not on
+        <header> itself. backdrop-filter (like filter/transform/perspective)
+        establishes a new containing block for `position: fixed`
+        descendants — so a fixed backdrop-blurred <header> would make the
+        full-screen mobile menu below resolve its `inset-0` against the
+        header's own ~72px height instead of the viewport once scrolled,
+        collapsing it to a transparent sliver. Keeping the filter off
+        <header> keeps the overlay's containing block the real viewport.
+      */}
+      <div
+        className={`transition-all duration-300 ${
+          scrolled
+            ? "bg-bg/85 backdrop-blur-xl border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
+        <div className="container-hgs flex items-center justify-between h-[72px] md:h-20">
+          <a href="#top" aria-label="HGS Sonderfahrten Startseite">
+            <Logo />
+          </a>
 
-        <nav className="hidden lg:flex items-center gap-9">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="font-label text-[13px] tracking-wide uppercase text-text-secondary hover:text-text transition-colors relative group"
-            >
-              {item.label}
-              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
-        </nav>
+          <nav className="hidden lg:flex items-center gap-9">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="font-label text-[13px] tracking-wide uppercase text-text-secondary hover:text-text transition-colors relative group"
+              >
+                {item.label}
+                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
+          </nav>
 
-        <a
-          href="#kontakt"
-          className="hidden lg:inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-label font-semibold text-[13px] tracking-wide uppercase px-5 py-3 rounded-md transition-all duration-200 hover:shadow-[0_0_24px_var(--accent-glow)] active:scale-[0.97]"
-        >
-          Transport anfragen
-        </a>
+          <a
+            href="#kontakt"
+            className="hidden lg:inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-label font-semibold text-[13px] tracking-wide uppercase px-5 py-3 rounded-md transition-all duration-200 hover:shadow-[0_0_24px_var(--accent-glow)] active:scale-[0.97]"
+          >
+            Transport anfragen
+          </a>
 
-        <button
-          type="button"
-          aria-label="Menü öffnen"
-          onClick={() => setMenuOpen(true)}
-          className="lg:hidden text-text p-2 -mr-2"
-        >
-          <Menu size={26} />
-        </button>
+          <button
+            type="button"
+            aria-label="Menü öffnen"
+            onClick={() => setMenuOpen(true)}
+            className="lg:hidden text-text p-2 -mr-2"
+          >
+            <Menu size={26} />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>

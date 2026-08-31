@@ -2,30 +2,28 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import VwKurier from "./vehicles/VwKurier";
-import FiatTransporter from "./vehicles/FiatTransporter";
 import Image from "next/image";
 
 const CARDS = [
   {
     title: "Kurier",
     text: "Klein, schnell, flexibel.",
-    Visual: VwKurier,
+    image: "/images/hgs-vw-caddy.jpg",
   },
   {
     title: "Express",
     text: "Direkt. Sicher. Just-in-Time.",
-    Visual: FiatTransporter,
+    image: "/images/hgs-fiat-ducato.jpg",
   },
   {
     title: "Spedition",
     text: "Planbar. Sicher. Europaweit.",
-    image: "/images/hgs-daf.png",
+    image: "/images/hgs-actros-b.jpg",
   },
   {
     title: "40 Tonnen",
     text: "Schwer. Stark. Zuverlässig.",
-    image: "/images/hgs-40t.png",
+    image: "/images/hgs-actros-a.jpg",
   },
 ] as const;
 
@@ -40,37 +38,33 @@ export default function SolutionCards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: i * 0.08 }}
-          className="group relative overflow-hidden rounded-2xl bg-card border border-border hover:border-accent/60 transition-colors duration-300 p-4 sm:p-5 flex flex-col justify-between min-h-[190px] sm:min-h-[220px]"
+          className="group relative overflow-hidden rounded-2xl border border-border hover:border-accent/60 transition-colors duration-300 min-h-[190px] sm:min-h-[240px]"
         >
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold uppercase text-sm sm:text-base tracking-wide text-text">
-              {card.title}
-            </h3>
-            <ArrowUpRight
-              size={16}
-              className="text-text-secondary group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
-            />
-          </div>
+          <Image
+            src={card.image}
+            alt={card.title}
+            fill
+            sizes="(min-width: 1024px) 20vw, 45vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-bg/10" />
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_50%_0%,rgba(227,34,34,0.18),transparent_70%)]" />
 
-          <div className="relative h-20 sm:h-24 my-1 flex items-center justify-center overflow-hidden">
-            {"image" in card ? (
-              <Image
-                src={card.image}
-                alt={card.title}
-                width={220}
-                height={140}
-                className="w-auto h-full max-w-[92%] object-contain transition-transform duration-500 ease-out group-hover:translate-x-2"
+          <div className="relative h-full flex flex-col justify-between p-4 sm:p-5">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold uppercase text-sm sm:text-base tracking-wide text-text drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                {card.title}
+              </h3>
+              <ArrowUpRight
+                size={16}
+                className="text-text-secondary group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
               />
-            ) : (
-              <card.Visual className="w-auto h-full max-w-[92%] transition-transform duration-500 ease-out group-hover:translate-x-2" />
-            )}
+            </div>
+
+            <p className="text-text-secondary text-xs sm:text-sm leading-snug max-w-[85%]">
+              {card.text}
+            </p>
           </div>
-
-          <p className="text-text-secondary text-xs sm:text-sm leading-snug">
-            {card.text}
-          </p>
-
-          <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_50%_0%,rgba(227,34,34,0.10),transparent_70%)]" />
         </motion.a>
       ))}
     </div>

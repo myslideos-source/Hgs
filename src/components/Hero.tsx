@@ -9,45 +9,32 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-bg pt-[100px] pb-16 md:pt-[140px] md:pb-24 flex flex-col lg:flex-row lg:items-center lg:min-h-[92vh]"
+      className="relative overflow-hidden bg-bg pt-[100px] pb-16 md:pt-[140px] md:pb-24 lg:min-h-[92vh] lg:flex lg:items-center"
     >
-      {/* atmospheric background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_20%,rgba(227,34,34,0.10),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_15%_85%,rgba(255,255,255,0.05),transparent_60%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
+      {/* Cinematic night-highway background */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.06 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        className="pointer-events-none absolute inset-0"
+      >
+        <Image
+          src="/images/hgs-journey-bg.jpg"
+          alt="HGS Sonderfahrten LKW bei Nacht auf der Autobahn"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[62%_50%]"
         />
-        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-bg to-transparent" />
-      </div>
+        {/* vignette: dark top/bottom band for text legibility, clearer mid-band on the truck */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg via-bg/25 to-bg/85" />
+        {/* strong left-side wash so headline sits on solid ground on wide screens */}
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/55 to-transparent lg:via-bg/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_78%_35%,rgba(227,34,34,0.12),transparent_65%)]" />
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-bg to-transparent" />
+      </motion.div>
 
-      {/* Truck — first on mobile, absolute-positioned stage right on desktop */}
-      <div className="relative order-1 z-[5] mb-8 lg:mb-0 lg:absolute lg:inset-y-0 lg:right-[-2%] lg:flex lg:items-end lg:pointer-events-none lg:order-none">
-        <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto lg:mx-0 w-[94%] max-w-[560px] lg:w-[46vw] lg:max-w-[820px] lg:translate-y-[6%]"
-        >
-          <div className="absolute -inset-x-10 bottom-[8%] h-16 bg-black/50 blur-3xl rounded-full" />
-          <div className="absolute -inset-16 bg-[radial-gradient(ellipse_50%_50%_at_50%_60%,rgba(227,34,34,0.18),transparent_70%)]" />
-          <Image
-            src="/images/hgs-40t.png"
-            alt="HGS Mercedes Sattelzug – 40-Tonnen Sondertransport"
-            width={1200}
-            height={860}
-            priority
-            className="relative w-full h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.5)]"
-          />
-        </motion.div>
-      </div>
-
-      <div className="container-hgs relative order-2 lg:order-none grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-6 items-center">
+      <div className="container-hgs relative z-10 grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-6 items-center">
         <div className="relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +99,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="lg:hidden order-3 container-hgs relative z-10 mt-8">
+      <div className="lg:hidden container-hgs relative z-10 mt-8">
         <LiveTransportCard className="mx-auto" />
       </div>
     </section>

@@ -46,7 +46,7 @@ export default function Footer() {
       <div className="container-hgs py-14 md:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
-            <Logo />
+            <Logo className="h-10 w-auto" />
             <p className="text-text-secondary text-sm mt-4 max-w-[220px]">
               Wenn es nicht warten kann.
             </p>

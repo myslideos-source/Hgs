@@ -6,8 +6,10 @@ import TruckJourneySection from "@/components/TruckJourneySection";
 import FuhrparkSection from "@/components/FuhrparkSection";
 import TimelineSection from "@/components/TimelineSection";
 import Werkstatt from "@/components/Werkstatt";
+import FaqSection from "@/components/FaqSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
 
 export default function Home() {
   return (
@@ -21,9 +23,11 @@ export default function Home() {
         <FuhrparkSection />
         <TimelineSection />
         <Werkstatt />
+        <FaqSection />
         <ContactSection />
       </main>
       <Footer />
+      <StructuredData />
     </div>
   );
 }

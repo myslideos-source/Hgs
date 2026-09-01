@@ -28,15 +28,32 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
 const COLUMNS = [
   {
     title: "Leistungen",
-    links: ["Sonderfahrten", "Direktfahrten", "Just-in-Time", "Kurierfahrten", "Spedition"],
+    links: [
+      { label: "Sonderfahrten", href: "#solutions" },
+      { label: "Direktfahrten", href: "#solutions" },
+      { label: "Just-in-Time", href: "#solutions" },
+      { label: "Kurierfahrten", href: "#solutions" },
+      { label: "Spedition", href: "#solutions" },
+    ],
   },
   {
     title: "Unternehmen",
-    links: ["Über uns", "Historie", "Karriere"],
+    links: [
+      { label: "Über uns", href: "#timeline" },
+      { label: "Historie", href: "#timeline" },
+      { label: "Karriere", href: "#" },
+    ],
   },
   {
     title: "Service",
-    links: ["Fuhrpark", "Werkstatt", "AGB", "Datenschutz"],
+    links: [
+      { label: "Fuhrpark", href: "#fuhrpark" },
+      { label: "Werkstatt", href: "#werkstatt" },
+      { label: "FAQ", href: "#faq" },
+      { label: "AGB", href: "#" },
+      { label: "Datenschutz", href: "#" },
+      { label: "Impressum", href: "/impressum" },
+    ],
   },
 ];
 
@@ -71,9 +88,9 @@ export default function Footer() {
               </h4>
               <ul className="flex flex-col gap-2.5">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-text/90 hover:text-accent transition-colors">
-                      {link}
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-text/90 hover:text-accent transition-colors">
+                      {link.label}
                     </a>
                   </li>
                 ))}

@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Wrench, Settings, Gauge, PackageSearch, ArrowRight } from "lucide-react";
+import { PackageSearch, ArrowRight } from "lucide-react";
 
 const FEATURES = [
   "Service & Wartung",
@@ -21,20 +22,14 @@ export default function Werkstatt() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="relative rounded-2xl border border-border bg-card aspect-[4/3] overflow-hidden order-2 lg:order-1"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_30%_20%,rgba(227,34,34,0.16),transparent_60%)]" />
-          <div
-            className="absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
+          <Image
+            src="/images/hgs-werkstatt.jpg"
+            alt="HGS Baumaschinen-Werkstatt bei Nacht mit zwei Mercedes Actros in Wartung"
+            fill
+            sizes="(min-width: 1024px) 45vw, 90vw"
+            className="object-cover"
           />
-          <div className="absolute inset-0 flex items-center justify-center gap-6 sm:gap-10">
-            <Wrench size={56} className="text-text-secondary/40 rotate-[-20deg]" strokeWidth={1.25} />
-            <Settings size={78} className="text-accent" strokeWidth={1} />
-            <Gauge size={56} className="text-text-secondary/40 rotate-[10deg]" strokeWidth={1.25} />
-          </div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_30%_20%,rgba(227,34,34,0.14),transparent_60%)]" />
           <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-bg-secondary to-transparent" />
         </motion.div>
 

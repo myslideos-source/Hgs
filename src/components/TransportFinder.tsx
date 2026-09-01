@@ -3,9 +3,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Zap, Clock, MapPinned } from "lucide-react";
+import type { FinderSelection } from "./SolutionsSection";
 
-export default function TransportFinder() {
+export default function TransportFinder({
+  selection,
+}: {
+  selection?: FinderSelection | null;
+}) {
   const [computed, setComputed] = useState(false);
+  const [resultTitle, setResultTitle] = useState("Direktfahrt");
   const [form, setForm] = useState({
     von: "Stuttgart, DE",
     nach: "Hamburg, DE",
@@ -13,6 +19,19 @@ export default function TransportFinder() {
     gewicht: "8.200 kg",
     zeitfenster: "Morgen, 08:00",
   });
+
+  // A card clicked in "Was muss wohin?" prefills the matching cargo/weight
+  // and recomputes the recommendation. Adjusted during render (React's
+  // documented pattern for "state that depends on a prop change") rather
+  // than in an effect, so it applies before paint instead of after an
+  // extra render + effect round trip.
+  const [lastSelection, setLastSelection] = useState(selection);
+  if (selection && selection !== lastSelection) {
+    setLastSelection(selection);
+    setForm((f) => ({ ...f, ladung: selection.ladung, gewicht: selection.gewicht }));
+    setResultTitle(selection.empfehlung);
+    setComputed(true);
+  }
 
   return (
     <div className="glass-card rounded-2xl p-5 sm:p-6">
@@ -29,6 +48,7 @@ export default function TransportFinder() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          setResultTitle("Direktfahrt");
           setComputed(true);
         }}
         className="grid grid-cols-2 gap-3"
@@ -85,7 +105,7 @@ export default function TransportFinder() {
               </span>
               <div className="flex items-center gap-2 mt-1.5 mb-3">
                 <Zap size={16} className="text-accent" />
-                <span className="font-bold uppercase text-base text-text">Direktfahrt</span>
+                <span className="font-bold uppercase text-base text-text">{resultTitle}</span>
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div className="flex items-start gap-2">

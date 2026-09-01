@@ -3,42 +3,66 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import type { FinderSelection } from "./SolutionsSection";
 
 const CARDS = [
   {
     title: "Kurier",
     text: "Klein, schnell, flexibel.",
     image: "/images/hgs-vw-caddy.jpg",
+    ladung: "Kleinteile / Dokumente",
+    gewicht: "15 kg",
+    empfehlung: "Kurierfahrt",
   },
   {
     title: "Express",
     text: "Direkt. Sicher. Just-in-Time.",
     image: "/images/hgs-fiat-ducato.jpg",
+    ladung: "Expressgut",
+    gewicht: "380 kg",
+    empfehlung: "Expressfahrt",
   },
   {
     title: "Spedition",
     text: "Planbar. Sicher. Europaweit.",
     image: "/images/hgs-actros-b.jpg",
+    ladung: "Sammelgut / Paletten",
+    gewicht: "2.500 kg",
+    empfehlung: "Sammelladung",
   },
   {
     title: "40 Tonnen",
     text: "Schwer. Stark. Zuverlässig.",
     image: "/images/hgs-actros-a.jpg",
+    ladung: "Maschinenteile",
+    gewicht: "22.000 kg",
+    empfehlung: "Schwertransport",
   },
 ] as const;
 
-export default function SolutionCards() {
+export default function SolutionCards({
+  onSelect,
+}: {
+  onSelect: (selection: Omit<FinderSelection, "nonce">) => void;
+}) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:gap-4">
       {CARDS.map((card, i) => (
-        <motion.a
+        <motion.button
           key={card.title}
-          href="#kontakt"
+          type="button"
+          onClick={() =>
+            onSelect({
+              ladung: card.ladung,
+              gewicht: card.gewicht,
+              empfehlung: card.empfehlung,
+            })
+          }
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: i * 0.08 }}
-          className="group relative overflow-hidden rounded-2xl border border-border hover:border-accent/60 transition-colors duration-300 min-h-[190px] sm:min-h-[240px]"
+          className="group relative overflow-hidden rounded-2xl border border-border hover:border-accent/60 transition-colors duration-300 min-h-[190px] sm:min-h-[240px] text-left"
         >
           <Image
             src={card.image}
@@ -65,7 +89,7 @@ export default function SolutionCards() {
               {card.text}
             </p>
           </div>
-        </motion.a>
+        </motion.button>
       ))}
     </div>
   );

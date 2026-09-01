@@ -8,7 +8,6 @@ import TransportFinder from "./TransportFinder";
 export type FinderSelection = {
   ladung: string;
   gewicht: string;
-  empfehlung: string;
   nonce: number;
 };
 

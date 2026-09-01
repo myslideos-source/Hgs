@@ -5,6 +5,9 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import type { FinderSelection } from "./SolutionsSection";
 
+// Weights are chosen to land squarely inside their intended bracket in
+// transportCalculator's classifyByWeight (≤750/≤3500/≤7500/>7500 kg), so
+// the card's own recommendation always matches what the Finder computes.
 const CARDS = [
   {
     title: "Kurier",
@@ -12,23 +15,20 @@ const CARDS = [
     image: "/images/hgs-vw-caddy.jpg",
     ladung: "Kleinteile / Dokumente",
     gewicht: "15 kg",
-    empfehlung: "Kurierfahrt",
   },
   {
     title: "Express",
     text: "Direkt. Sicher. Just-in-Time.",
     image: "/images/hgs-fiat-ducato.jpg",
     ladung: "Expressgut",
-    gewicht: "380 kg",
-    empfehlung: "Expressfahrt",
+    gewicht: "1.200 kg",
   },
   {
     title: "Spedition",
     text: "Planbar. Sicher. Europaweit.",
     image: "/images/hgs-actros-b.jpg",
     ladung: "Sammelgut / Paletten",
-    gewicht: "2.500 kg",
-    empfehlung: "Sammelladung",
+    gewicht: "6.000 kg",
   },
   {
     title: "40 Tonnen",
@@ -36,7 +36,6 @@ const CARDS = [
     image: "/images/hgs-actros-a.jpg",
     ladung: "Maschinenteile",
     gewicht: "22.000 kg",
-    empfehlung: "Schwertransport",
   },
 ] as const;
 
@@ -55,7 +54,6 @@ export default function SolutionCards({
             onSelect({
               ladung: card.ladung,
               gewicht: card.gewicht,
-              empfehlung: card.empfehlung,
             })
           }
           initial={{ opacity: 0, y: 24 }}

@@ -6,7 +6,7 @@ import { journeySteps } from "./journeySteps";
 // as a simple static layout instead of a scroll-driven scene.
 export default function TruckJourneyStatic() {
   return (
-    <div className="relative overflow-hidden bg-bg pt-28 pb-16 md:pt-36 md:pb-24">
+    <div className="theme-dark relative overflow-hidden bg-bg pt-28 pb-16 md:pt-36 md:pb-24">
       <div className="absolute inset-0">
         <Image
           src="/images/hgs-journey-bg.jpg"

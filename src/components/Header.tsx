@@ -14,6 +14,22 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
+  // The Hero is the one deliberately dark ("theme-dark") section on an
+  // otherwise light site. Two independent things determine how the header
+  // looks:
+  //  - overDarkHero: are we currently sitting on top of that dark photo?
+  //    Decides text/icon color (light vs the normal dark tokens) — tracked
+  //    via an IntersectionObserver on the Hero itself (id="top"). Pages
+  //    without a Hero (e.g. /impressum) are simply never over it.
+  //  - scrolled: has the page scrolled at all? Decides whether the header
+  //    gains a blurred backdrop, independent of which photo/page is under it.
+  // They're kept separate (rather than one "pastHero" flag) because the
+  // header itself renders under the page's default light theme — it isn't
+  // nested inside the Hero's `.theme-dark` scope — so its own translucent
+  // backdrop must be explicitly dark while overDarkHero is true instead of
+  // relying on token inheritance; otherwise a couple of scrolled pixels
+  // into the Hero would show white nav text on a near-white blurred bar.
+  const [overDarkHero, setOverDarkHero] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -22,6 +38,18 @@ export default function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    // No Hero on this page (e.g. /impressum) — overDarkHero's initial
+    // `false` is already correct and never needs to change.
+    const heroEl = document.getElementById("top");
+    if (!heroEl) return;
+    const observer = new IntersectionObserver(([entry]) => setOverDarkHero(entry.isIntersecting), {
+      threshold: 0,
+    });
+    observer.observe(heroEl);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -44,10 +72,12 @@ export default function Header() {
         <header> keeps the overlay's containing block the real viewport.
       */}
       <div
-        className={`transition-all duration-300 ${
-          scrolled
-            ? "bg-bg/85 backdrop-blur-xl border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-            : "bg-transparent border-b border-transparent"
+        className={`transition-all duration-300 border-b ${
+          !scrolled
+            ? "bg-transparent border-transparent"
+            : overDarkHero
+              ? "bg-black/40 backdrop-blur-xl border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+              : "bg-bg/85 backdrop-blur-xl border-border shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
         }`}
       >
         <div className="container-hgs flex items-center justify-between h-[72px] md:h-20">
@@ -60,7 +90,9 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className="font-label text-[13px] tracking-wide uppercase text-text-secondary hover:text-text transition-colors relative group"
+                className={`font-label text-[13px] tracking-wide uppercase transition-colors relative group ${
+                  overDarkHero ? "text-white/85 hover:text-white" : "text-text-secondary hover:text-text"
+                }`}
               >
                 {item.label}
                 <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
@@ -79,7 +111,7 @@ export default function Header() {
             type="button"
             aria-label="Menü öffnen"
             onClick={() => setMenuOpen(true)}
-            className="lg:hidden text-text p-2 -mr-2"
+            className={`lg:hidden p-2 -mr-2 transition-colors ${overDarkHero ? "text-white" : "text-text"}`}
           >
             <Menu size={26} />
           </button>

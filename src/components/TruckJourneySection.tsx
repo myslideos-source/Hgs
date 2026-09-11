@@ -73,7 +73,12 @@ export default function TruckJourneySection() {
   }
 
   return (
-    <section id="journey" ref={containerRef} className="relative" style={{ height: SCROLL_HEIGHT }}>
+    <section
+      id="journey"
+      ref={containerRef}
+      className="theme-dark relative"
+      style={{ height: SCROLL_HEIGHT }}
+    >
       <div className="sticky top-0 h-screen w-full">
         <TruckJourneyScene progress={progress} />
       </div>

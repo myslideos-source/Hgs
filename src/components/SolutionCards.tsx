@@ -60,7 +60,7 @@ export default function SolutionCards({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: i * 0.08 }}
-          className="group relative overflow-hidden rounded-2xl border border-border hover:border-accent/60 transition-colors duration-300 min-h-[190px] sm:min-h-[240px] text-left"
+          className="theme-dark group relative overflow-hidden rounded-2xl border border-border hover:border-accent/60 transition-colors duration-300 min-h-[190px] sm:min-h-[240px] text-left"
         >
           <Image
             src={card.image}

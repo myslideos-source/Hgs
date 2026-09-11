@@ -1,6 +1,31 @@
 @import "tailwindcss";
 
+/*
+ * Light theme is the site's default (per the client's request to match
+ * their previous, white-first site). A handful of sections stay dark on
+ * purpose — the cinematic Hero and the scroll-driven truck journey are
+ * built around night photography and lose the effect entirely under a
+ * light wash, and the stylized Europe route map reads as a small dark
+ * "dashboard" accent rather than page content. Those opt back into the
+ * original dark palette by wrapping their root element in `.theme-dark`;
+ * every component below them keeps using the same bg-bg/text-text/etc.
+ * tokens and automatically renders dark there, no per-component styling.
+ */
 :root {
+  --bg: #ffffff;
+  --bg-secondary: #f5f6f7;
+  --card: #ffffff;
+  --border: rgba(20, 24, 27, 0.1);
+  --border-strong: rgba(20, 24, 27, 0.18);
+  --text: #14181b;
+  --text-secondary: #5b6570;
+  --accent: #e32222;
+  --accent-dark: #b81919;
+  --accent-glow: rgba(227, 34, 34, 0.35);
+  --ready: #16803d;
+}
+
+.theme-dark {
   --bg: #080b0d;
   --bg-secondary: #0d1114;
   --card: #10161a;
@@ -8,9 +33,6 @@
   --border-strong: rgba(255, 255, 255, 0.14);
   --text: #f5f5f2;
   --text-secondary: #9ea6ab;
-  --accent: #e32222;
-  --accent-dark: #b81919;
-  --accent-glow: rgba(227, 34, 34, 0.35);
   --ready: #3ecf6a;
 }
 
@@ -78,7 +100,7 @@ body {
 }
 
 .glass-card {
-  background: rgba(16, 22, 26, 0.72);
+  background: color-mix(in srgb, var(--card) 72%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);

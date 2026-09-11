@@ -24,7 +24,7 @@ const destinations = CITIES.slice(1);
 
 export default function EuropaMap() {
   return (
-    <div className="relative w-full aspect-[10/11] sm:aspect-[4/3] rounded-2xl border border-border bg-bg-secondary overflow-hidden">
+    <div className="theme-dark relative w-full aspect-[10/11] sm:aspect-[4/3] rounded-2xl border border-border bg-bg-secondary overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.08]"
         style={{

@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-bg pt-[100px] pb-16 md:pt-[140px] md:pb-24 lg:min-h-[92vh] lg:flex lg:items-center"
+      className="theme-dark relative overflow-hidden bg-bg pt-[100px] pb-16 md:pt-[140px] md:pb-24 lg:min-h-[92vh] lg:flex lg:items-center"
     >
       {/* Cinematic night-highway background */}
       <motion.div
